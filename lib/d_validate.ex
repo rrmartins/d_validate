@@ -43,4 +43,20 @@ defmodule DValidate do
   def validate_type(value, :integer) when is_integer(value), do: :ok
   def validate_type(value, :float) when is_float(value), do: :ok
   def validate_type(_, type), do: {:error, type, "is invalid"}
+
+  @doc """
+  Validates if a value matches the given regex pattern.
+
+  ## Examples
+      iex> DValidate.validate_format("abc 123", ~r/^\w+$/)
+      {:error, :field_name, "has an invalid format"}
+
+  """
+  def validate_format(value, regex) do
+    if Regex.match?(regex, value) do
+      :ok
+    else
+      {:error, :field_name, "has an invalid format"}
+    end
+  end
 end
