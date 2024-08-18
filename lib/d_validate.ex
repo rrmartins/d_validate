@@ -22,4 +22,25 @@ defmodule DValidate do
       :ok
     end
   end
+
+  @doc """
+  Validates if a value is of the specified type.
+
+  ## Examples
+      iex> DValidate.validate_type(1, :integer)
+      :ok
+
+      iex> DValidate.validate_type("value", :string)
+      :ok
+
+      iex> DValidate.validate_type(1.0, :float)
+      :ok
+     
+      iex> DValidate.validate_type("value", :integer)
+      {:error, :integer, "is invalid"}
+  """
+  def validate_type(value, :string) when is_binary(value), do: :ok
+  def validate_type(value, :integer) when is_integer(value), do: :ok
+  def validate_type(value, :float) when is_float(value), do: :ok
+  def validate_type(_, type), do: {:error, type, "is invalid"}
 end
