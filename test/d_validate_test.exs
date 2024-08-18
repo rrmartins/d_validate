@@ -13,4 +13,11 @@ defmodule DValidateTest do
     assert DValidate.validate_type(1.0, :float) == :ok
     assert DValidate.validate_type(123, :string) == {:error, :string, "is invalid"}
   end
+
+  test "validate_format/2" do
+    assert DValidate.validate_format("abc123", ~r/^\w+$/) == :ok
+
+    assert DValidate.validate_format("abc 123", ~r/^\w+$/) ==
+             {:error, :field_name, "has an invalid format"}
+  end
 end
