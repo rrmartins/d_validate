@@ -1,18 +1,25 @@
 defmodule DValidate do
   @moduledoc """
-  Documentation for `DValidate`.
+  A module for validating input fields in Elixir applications.
   """
 
   @doc """
-  Hello world.
+  Validates if a value is present.
 
   ## Examples
 
-      iex> DValidate.hello()
-      :world
+      iex> DValidate.validate_presence("value", :field_name)
+      :ok
+
+      iex> DValidate.validate_presence(nil, :field_name)
+      {:error, :field_name, "is required"}
 
   """
-  def hello do
-    :world
+  def validate_presence(value, field_name) do
+    if value in [nil, ""] do
+      {:error, field_name, "is required"}
+    else
+      :ok
+    end
   end
 end
