@@ -20,4 +20,12 @@ defmodule DValidateTest do
     assert DValidate.validate_format("abc 123", ~r/^\w+$/) ==
              {:error, :field_name, "has an invalid format"}
   end
+
+  test "validate_length/2" do
+    assert DValidate.validate_length(:field_name, "abc", 3) == :ok
+    assert DValidate.validate_length(:field_name, "a", 5) == {:error, :field_name, "is too short"}
+    assert DValidate.validate_length(:field_name, "abcdef", 5) == {:error, :field_name, "is too long"}
+  end
+
+
 end
