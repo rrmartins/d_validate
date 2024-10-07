@@ -35,7 +35,7 @@ defmodule DValidate do
 
       iex> DValidate.validate_type(1.0, :float)
       :ok
-     
+
       iex> DValidate.validate_type("value", :integer)
       {:error, :integer, "is invalid"}
   """
@@ -57,6 +57,31 @@ defmodule DValidate do
       :ok
     else
       {:error, :field_name, "has an invalid format"}
+    end
+  end
+
+  @doc """
+  Validates if a value has the specified length.
+
+  ## Examples
+      iex> DValidate.validate_length(:field_name, "abc", 3)
+      :ok
+
+      iex> DValidate.validate_length(:field_name, "a", 5)
+      {:error, :field_name, "is too short"}
+
+      iex> DValidate.validate_length(:field_name, "abcdef", 5)
+      {:error, :field_name, "is too long"}
+  """
+  def validate_length(field_name, value, length) do
+    if String.length(value) == length do
+      :ok
+    else
+      if String.length(value) < length do
+        {:error, field_name, "is too short"}
+      else
+        {:error, field_name, "is too long"}
+      end
     end
   end
 end
