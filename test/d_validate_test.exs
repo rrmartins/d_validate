@@ -1,6 +1,9 @@
 defmodule DValidateTest do
   use ExUnit.Case
   doctest DValidate
+  doctest DValidate.ValidateFormat
+  doctest DValidate.ValidatePresence
+  doctest DValidate.ValidateType
 
   test "validate_presence/2" do
     assert DValidate.validate_presence("value", :field_name) == :ok
@@ -15,7 +18,7 @@ defmodule DValidateTest do
   end
 
   test "validate_format/2" do
-    assert DValidate.validate_format("abc123", ~r/^\w+$/) == :ok
+    assert DValidate.validate_format("abc123", ~r/^\w+$/) == {:ok}
 
     assert DValidate.validate_format("abc 123", ~r/^\w+$/) ==
              {:error, :field_name, "has an invalid format"}
@@ -60,7 +63,7 @@ defmodule DValidateTest do
                {:error, :field_name, "is too short"}
 
       assert DValidate.validate_length(:field_name, "abc", length: 5) ==
-        {:error, :field_name, "is too short"}
+               {:error, :field_name, "is too short"}
     end
 
     test "returns an error when the value length is greater than the specified length" do
@@ -71,5 +74,4 @@ defmodule DValidateTest do
                {:error, :field_name, "is too long"}
     end
   end
-
 end
