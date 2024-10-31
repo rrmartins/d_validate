@@ -4,7 +4,7 @@ defmodule DValidate.MixProject do
   def project do
     [
       app: :d_validate,
-      version: "0.1.0",
+      version: "1.1.0",
       elixir: "~> 1.17",
       description: "A module for validating input fields in Elixir applications.",
       package: package(),
