@@ -3,26 +3,15 @@ defmodule DValidate do
   A module for validating input fields in Elixir applications.
   """
 
-  alias DValidate.{ValidatePresence, ValidateType}
+  alias DValidate.{
+    ValidateFormat,
+    ValidatePresence,
+    ValidateType
+  }
 
   defdelegate validate_presence(value, field_name), to: ValidatePresence, as: :call
   defdelegate validate_type(value, type), to: ValidateType, as: :call
-
-  @doc """
-  Validates if a value matches the given regex pattern.
-
-  ## Examples
-      iex> DValidate.validate_format("abc 123", ~r/^\w+$/)
-      {:error, :field_name, "has an invalid format"}
-
-  """
-  def validate_format(value, regex) do
-    if Regex.match?(regex, value) do
-      :ok
-    else
-      {:error, :field_name, "has an invalid format"}
-    end
-  end
+  defdelegate validate_format(value, regex), to: ValidateFormat, as: :call
 
   @doc """
   Validates if a value has a length within a specified range or an exact length.
