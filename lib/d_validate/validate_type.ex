@@ -4,29 +4,21 @@ defmodule DValidate.ValidateType do
 
   ## Examples
 
-      iex> DValidate.validate_type(1, :integer)
+      iex> DValidate.ValidateType.call(1, :integer)
       :ok
 
-      iex> DValidate.validate_type("value", :string)
+      iex> DValidate.ValidateType.call("value", :string)
       :ok
 
-      iex> DValidate.validate_type(1.0, :float)
+      iex> DValidate.ValidateType.call(1.0, :float)
       :ok
 
-      iex> DValidate.validate_type("value", :integer)
+      iex> DValidate.ValidateType.call("value", :integer)
       {:error, :integer, "is invalid"}
 
   """
-  def call(value, field_name) do
-    if value in [nil, ""] do
-      {:error, field_name, "is required"}
-    else
-      :ok
-    end
-  end
-
-  def validate_type(value, :string) when is_binary(value), do: :ok
-  def validate_type(value, :integer) when is_integer(value), do: :ok
-  def validate_type(value, :float) when is_float(value), do: :ok
-  def validate_type(_, type), do: {:error, type, "is invalid"}
+  def call(value, :string) when is_binary(value), do: :ok
+  def call(value, :integer) when is_integer(value), do: :ok
+  def call(value, :float) when is_float(value), do: :ok
+  def call(_, type), do: {:error, type, "is invalid"}
 end
