@@ -4,6 +4,7 @@ defmodule DValidateTest do
   doctest DValidate.ValidateFormat
   doctest DValidate.ValidatePresence
   doctest DValidate.ValidateType
+  doctest DValidate.ValidateLength
 
   test "validate_presence/2" do
     assert DValidate.validate_presence("value", :field_name) == :ok
